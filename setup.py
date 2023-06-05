@@ -3,14 +3,14 @@
 @author: Vladya
 """
 
-import _svc_py
+import svc_py
 from distutils.core import setup
 
 setup(
-    name='_svc_py',
+    name='svc_py',
     version=_svc_py.__version__,
     author="Vladya",
-    packages=("_svc_py",),
+    packages=("svc_py",),
     install_requires=(
         "ffmpeg",
         "librosa",
