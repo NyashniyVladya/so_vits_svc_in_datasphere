@@ -12,7 +12,7 @@ setup(
     author="Vladya",
     packages=("svc_py",),
     install_requires=(
-        "ffmpeg",
+        "ffmpeg-python",
         "librosa",
         "soundfile"
     )
