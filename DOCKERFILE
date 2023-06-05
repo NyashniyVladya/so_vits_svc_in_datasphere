@@ -1,0 +1,41 @@
+# Сборка Docker-контейнера для Yandex-Datasphere.
+# Author: Vladya
+
+
+# Ставим систему из базовых инструкций Яндекса.
+
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN useradd -ms /bin/bash --uid 1000 jupyter \
+&& apt update \
+&& apt install -y python3.9-dev python3.9-distutils curl \
+&& ln -s /usr/bin/python3.9 /usr/local/bin/python3 \
+&& curl https://bootstrap.pypa.io/get-pip.py | python3
+
+# Обновляем сборщики пая.
+RUN python3 -m pip install -U pip setuptools wheel
+
+# Ставим загрузчик и компиляторы.
+RUN apt install -y wget build-essential nasm yasm
+
+# Скачиваем, собираем и ставим ffmpeg.
+RUN wget -O ffmpeg.tar.xz https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/ffmpeg/7:5.1.2-3ubuntu1/ffmpeg_5.1.2.orig.tar.xz
+RUN tar -xf ffmpeg.tar.xz
+RUN cd /ffmpeg-5.1.2 && ./configure && make && make install
+RUN rm -rf ffmpeg.tar.xz
+RUN rm -rf ffmpeg-5.1.2/
+
+# Обновляем PATH для корректной работы с Jupyter'ом.
+ENV PATH=/home/jupyter/.local/bin:$PATH
+
+# Ставим so-vits-svc-fork и нужны пакеты для работы.
+RUN pip install -U ffmpeg-python librosa soundfile
+RUN pip install -U torch torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN pip install -U so-vits-svc-fork
+RUN pip install -U https://github.com/NyashniyVladya/so_vits_svc_in_datasphere/archive/refs/heads/main.zip
+
+# Ставим нужные версии пакетов.
+RUN pip install numpy==1.21
+RUN pip install protobuf==3.20.*
