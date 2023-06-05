@@ -8,7 +8,7 @@ from distutils.core import setup
 
 setup(
     name='svc_py',
-    version=_svc_py.__version__,
+    version=svc_py.__version__,
     author="Vladya",
     packages=("svc_py",),
     install_requires=(
