@@ -133,6 +133,7 @@ def convert(_from, _to, **kwargs):
 
     stream = ffmpeg.input(_from)
     stream = stream.output(_to, **kwargs)
+    stream = stream.global_args("-loglevel", "error")
 
     _create_dir_for_file(_to)
     stream.run(overwrite_output=True)
