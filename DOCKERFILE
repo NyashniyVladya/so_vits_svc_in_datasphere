@@ -29,13 +29,3 @@ RUN rm -rf ffmpeg-5.1.2/
 
 # Обновляем PATH для корректной работы с Jupyter'ом.
 ENV PATH=/home/jupyter/.local/bin:$PATH
-
-# Ставим so-vits-svc-fork и нужны пакеты для работы.
-RUN pip install -U ffmpeg-python librosa soundfile
-RUN pip install -U torch torchaudio --index-url https://download.pytorch.org/whl/cu118
-RUN pip install -U so-vits-svc-fork
-RUN pip install -U https://github.com/NyashniyVladya/so_vits_svc_in_datasphere/archive/refs/heads/main.zip
-
-# Ставим нужные версии пакетов.
-RUN pip install numpy==1.21
-RUN pip install protobuf==3.20.*
