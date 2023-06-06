@@ -1,5 +1,4 @@
 # Сборка Docker-контейнера для Yandex-Datasphere.
-MAINTAINER Vladya
 
 # Ставим систему из базовых инструкций Яндекса.
 
