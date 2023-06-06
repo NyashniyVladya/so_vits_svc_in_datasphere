@@ -1,7 +1,6 @@
 # Сборка Docker-контейнера для Yandex-Datasphere.
 
 # Ставим систему из базовых инструкций Яндекса.
-
 FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
